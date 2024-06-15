@@ -44,10 +44,11 @@ func (a App) joinAndTerminateAll() <-chan error {
 
 func (a App) joinOneAndTerminateAll(errCh chan<- error) func(p Applet) {
 	return func(p Applet) {
-		if err := p.Join(); err != nil {
-			a.terminateAll()
+		err := p.Join()
+		if err != nil {
 			errCh <- err
 		}
+		a.terminateAll()
 	}
 }
 
