@@ -1,9 +1,13 @@
 package getkeyorcreate
 
-import "fmt"
+import (
+	"fmt"
 
-func New() func(url string) (key string, err error) {
-	return func(url string) (key string, err error) {
-		return fmt.Sprintf("hash(%s)", url), nil
+	"goshort-standalone/common/rslt"
+)
+
+func New() func(url string) rslt.Of[string] {
+	return func(url string) rslt.Of[string] {
+		return rslt.Value(fmt.Sprintf("hash(%s)", url))
 	}
 }

@@ -1,11 +1,13 @@
 package generate
 
+import "goshort-standalone/common/rslt"
+
 type Logic interface {
-	Generate(url string) (key string, err error)
+	Generate(url string) rslt.Of[string]
 }
 
-type LogicFunc func(url string) (key string, err error)
+type LogicFunc func(url string) rslt.Of[string]
 
-func (f LogicFunc) Generate(url string) (key string, err error) {
+func (f LogicFunc) Generate(url string) rslt.Of[string] {
 	return f(url)
 }
