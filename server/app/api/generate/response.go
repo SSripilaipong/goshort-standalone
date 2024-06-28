@@ -17,7 +17,7 @@ func asHttpResponse(f func(JsonBody) rslt.Of[urlWithKey]) func(httprslt.Of[JsonB
 }
 
 var genResultToHttpResponse = rslt.Collapse(func(result urlWithKey) httprsp.Writer {
-	return httprsp.Ok(httprsp.Json(Response{Url: result.Url, Key: result.Key}))
+	return httprsp.Created(httprsp.Json(Response{Url: result.Url, Key: result.Key}))
 }, func(err error) httprsp.Writer {
 	return httprsp.InternalServerError(httprsp.Json(httprsp.NewMessage(err.Error())))
 })

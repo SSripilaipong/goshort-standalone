@@ -20,13 +20,5 @@ func newApiHandler(logic logic) *http.ServeMux {
 }
 
 func route(mux *http.ServeMux, pattern string, handler func(request *http.Request) httprsp.Writer) {
-	mux.Handle(pattern, handlerFunc(handler))
-}
-
-func handlerFunc(f func(request *http.Request) httprsp.Writer) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if err := f(r).Write(w); err != nil {
-			panic(err)
-		}
-	}
+	mux.Handle(pattern, httprsp.HandlerFunc(handler))
 }
